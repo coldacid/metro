@@ -102,7 +102,7 @@
 				<h2 id="site-description"><?php bloginfo("description"); ?></h2>
 				<div id="site-title">
 					<?php if (has_nav_menu("primary")): ?>
-						<?php wp_nav_menu("primary"); ?>
+						<?php wp_nav_menu(array('theme_location' => "primary", 'depth' => 1)); ?>
 					<?php else: ?>
 						<ul>
 							<li class="current_page_item"><a href="<?php echo home_url("/"); ?>" title="<?php echo esc_attr(get_bloginfo("name", "display")); ?>"><?php bloginfo("name"); ?></a></li>
