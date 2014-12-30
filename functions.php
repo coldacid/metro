@@ -122,6 +122,13 @@ if (!function_exists("metro_posted_on"))
 {
 	function metro_posted_on()
 	{
+		$custom_post_type = false;
+		$post_type = get_post_type(get_the_ID());
+		if ($post_type != 'post' && $post_type != 'page')
+		{
+			$custom_post_type = true;
+			$post_type_obj = get_post_type_object($post_type);
+		}
 ?>
 	<p class="last">
 		<?php
@@ -146,7 +153,9 @@ if (!function_exists("metro_posted_on"))
 					get_the_author()
 				),
 				"meta-sep",
-				get_the_category_list(", ")
+				$custom_post_type
+					? get_the_term_list(get_the_ID(), $post_type_obj->taxonomies[0], '', ", ")
+					: get_the_category_list(", ")
 			);
 		?>
 	</p>
@@ -162,7 +171,20 @@ if (!function_exists("metro_tag_links"))
 {
 	function metro_tag_links()
 	{
-		if ($tags_list = get_the_tag_list('', ', '))
+		$custom_post_type = false;
+		$post_type = get_post_type(get_the_ID());
+		if ($post_type != 'post' && $post_type != 'page')
+		{
+			$custom_post_type = true;
+			$post_type_obj = get_post_type_object($post_type);
+			$tags_list = get_the_term_list(get_the_ID(), $post_type_obj->taxonomies[1], '', ', ');
+		}
+		else
+		{
+			$tags_list = get_the_tag_list('', ', ');
+		}
+		
+		if ($tags_list)
 		{
 ?>
 	<p class="last"><span class="entry-utility-prep entry-utility-prep-tag-links"><?php echo _e("Tags", "metro"); ?>: </span> <?php echo $tags_list; ?></p>
