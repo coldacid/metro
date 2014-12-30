@@ -194,6 +194,11 @@ msgid "Pages:"
 msgstr "Pages:"
 
 #. Text in function
+#: archive-jetpack-portfolio.php:15
+msgid "Portfolio"
+msgstr "Portfolio"
+
+#. Text in function
 #: functions.php:287
 msgid "Primary widget area"
 msgstr "Primary widget area"
